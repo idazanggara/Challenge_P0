@@ -26,29 +26,87 @@ Gunakanlah fungsi-fungsi yang sudah pernah kamu buat sebelumnya
 */
 
 function getTheMessage(words, keys) {
-  // your code here
+    let output = ``;
+
+    let array2 = [];
+
+    for (let i = 0; i < keys.length; i++) {
+        let array = [];
+        let array1 = [];
+        let sentence = ``;
+
+        for (let j = 0; j < 4; j++) {
+
+            if (keys[i] > 0) {
+                array.unshift(keys[i] % 2);
+                keys[i] = Math.floor(keys[i] / 2);
+            }
+
+            if (keys[i] === 0 && array.length < 4) {
+                array.unshift(0);
+            }
+        }
+
+        for (let k = 0; k < words[i].length; k++) {
+            if (words[i][k] !== ` `) {
+                sentence += words[i][k];
+            }
+
+            if (words[i][k] === ` ` || k === words[i].length - 1) {
+                array1.push(sentence);
+                sentence = ``;
+            }
+        }
+
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] === 1) {
+                array2.push(array1[i]);
+            }
+        }
+    }
+
+    for (let i = 0; i < array2.length; i++) {
+        if (i === array2.length - 1) {
+            output += array2[i].toLowerCase();
+            break;
+        }
+
+        if (output.length === 0) {
+            for (let j = 0; j < array2[i].length; j++) {
+                if (j === 0) {
+                    output += array2[i][j].toUpperCase();
+                    continue;
+                }
+                output += array2[i][j].toLowerCase();
+            }
+            output += ` `;
+            continue;
+        }
+        output += array2[i].toLowerCase();
+        output += ` `;
+    }
+    return output;
 }
 
 let kunci = [1, 4, 2, 0, 12]
-
 let sajak = [
-  'Ingatkah kota kelahiran kita',     // 0001 => binary dari 1
-  'Kota Serang nan indah dan lapang', // 0100 => binary dari 4,  hiraukan semua kata setelah 'indah'
-  'Tidak ada musuh dari hati ini',    // 0010 => binary dari 2,  hiraukan semua kata setelah 'dari'
-  'Karena damai selalu dalam diri',   // 0000 => binary dari 0,  tidak ada yang kita ambil
-  'Besok pagi kita menuai padi'       // 1100 => binary dari 12, hiraukan semua kata setelah 'menuai'
+    'Ingatkah kota kelahiran kita',     // 0001 => binary dari 1
+    'Kota Serang nan indah dan lapang', // 0100 => binary dari 4,  hiraukan semua kata setelah 'indah'
+    'Tidak ada musuh dari hati ini',    // 0010 => binary dari 2,  hiraukan semua kata setelah 'dari'
+    'Karena damai selalu dalam diri',   // 0000 => binary dari 0,  tidak ada yang kita ambil
+    'Besok pagi kita menuai padi'       // 1100 => binary dari 12, hiraukan semua kata setelah 'menuai'
 ]
 
 console.log(getTheMessage(sajak, kunci)) // Kita serang musuh besok pagi
 
 kunci = [0, 1, 0, 2, 10, 2]
 sajak = [
-  'Cantik rupawan dirimu nak',                  // 0000 => binary dari 0
-  'Kulihat dari sembarang posisi dan tertegun', // 0001 => binary dari 1,  hiraukan semua kata setelah 'posisi'
-  'Bidadari terlahir',                          // 0000 => binary dari 0
-  'Akankah aku lawan keelokan ini',             // 0010 => binary dari 2,  hiraukan semua kata setelah 'keelokan'
-  'Di ufuk timur matahari tersenyum',           // 1010 => binary dari 10, hiraukan semua kata setelah 'matahari'
-  'Menerangi ujung lembah tempat kita berdiam', // 0010 => binary dari 2,  hiraukan semua kata setelah 'tempat'
+    'Cantik rupawan dirimu nak',                  // 0000 => binary dari 0
+    'Kulihat dari sembarang posisi dan tertegun', // 0001 => binary dari 1,  hiraukan semua kata setelah 'posisi'
+    'Bidadari terlahir',                          // 0000 => binary dari 0
+    'Akankah aku lawan keelokan ini',             // 0010 => binary dari 2,  hiraukan semua kata setelah 'keelokan'
+    'Di ufuk timur matahari tersenyum',           // 1010 => binary dari 10, hiraukan semua kata setelah 'matahari'
+    'Menerangi ujung lembah tempat kita berdiam', // 0010 => binary dari 2,  hiraukan semua kata setelah 'tempat'
 ]
 
 console.log(getTheMessage(sajak, kunci)) // Posisi lawan di timur lembah
